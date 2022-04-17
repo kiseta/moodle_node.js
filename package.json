@@ -1,0 +1,17 @@
+{
+  "name": "Moodle_Node",
+  "version": "1.0.0",
+  "description": "Selenium Example Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tatyana Kiseleva",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "chromedriver": "^100.0.0",
+    "mocha": "^9.2.2",
+    "selenium-webdriver": "^4.1.1"
+  }
+}
