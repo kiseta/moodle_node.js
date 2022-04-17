@@ -1,12 +1,7 @@
 var random = require('generate-random-data');
-new_firstName = [random.femaleFirstName(), random.maleFirstName()][Math.floor(Math.random() * 2)]
-new_lastName = random.lastName()
+new_firstName = [random.femaleFirstName(), random.maleFirstName()][Math.floor(Math.random() * 2)];
+new_lastName = random.lastName();
 new_username = (new_firstName + new_lastName).toLowerCase().substring(0, 10) + random.int(11,99);
-new_password = 'Moodle!123';
-new_fullName = new_firstName.concat(" ", new_lastName);
-console.log(new_firstName)
-console.log(new_fullName)
-
 
 // const webdriver = require('selenium-webdriver'),
 //     By = webdriver.By,

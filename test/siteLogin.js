@@ -17,7 +17,7 @@ var admin_fullname = 'Test User';
 
 // use Mocha testing framework
 // describe block
-describe("Test: Create New User", function(){
+describe("Test: Login", function(){
 
     // it block (it = individual test)
     it("Launch Moodle app and login", async function(){
