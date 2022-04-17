@@ -17,10 +17,10 @@ var admin_fullname = 'Test User';
 
 // use Mocha testing framework
 // describe block
-describe(app, "Add New User", function(){
+describe("Test: Create New User", function(){
 
     // it block (it = individual test)
-    it("successfully launch and login to the", app, "application", async function(){
+    it("Launch Moodle app and login", async function(){
 
         let driver = await new Builder().forBrowser("chrome").build();
 
@@ -38,12 +38,6 @@ describe(app, "Add New User", function(){
         await driver.findElement(By.id("password")).sendKeys(admin_password);
         await driver.findElement(By.id("loginbtn")).click();
 
-        // assert using node assertion
-        // validate login successful
-
-        // let fullNameText = await driver.findElement(By.xpath("//span[@class='usertext mr-1']")).getText().then(function(value){
-        //     return value
-        // })
 
         let fullNameText = await driver.findElement(By.className("usertext mr-1")).getText().then(function(value){
             return value
@@ -56,13 +50,6 @@ describe(app, "Add New User", function(){
         console.log('Login Successful! User Name is confirmed:', fullNameText, hr)
 
         console.log('Confirm Dashboard\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
-
-
-        await driver.findElement(By.linkText("Site administration")).click();
-        await driver.findElement(By.linkText("Users")).click();
-        await driver.findElement(By.linkText("Add a new user")).click();
-
-        console.log('Navigate to Add New User\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
 
 
         // quit the browser after execution
