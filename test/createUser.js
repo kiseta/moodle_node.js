@@ -31,7 +31,7 @@ console.log(new_firstName, new_lastName, new_username, new_fullName, new_email,t
 
 // use Mocha testing framework
 // describe block
-describe("Test: Create New User", function(){
+describe("Moodle Test: Add New User", function(){
 
     // it block (it = individual test)
     it("Launch Moodle app, login, register new user", async function(){
@@ -71,6 +71,7 @@ describe("Test: Create New User", function(){
 
         console.log('Navigate to Add New User\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
 
+        // required filds only
         await driver.findElement(By.id("id_username")).sendKeys(new_username);
         await driver.findElement(By.linkText("Click to enter text")).click();
         await driver.findElement(By.id("id_newpassword")).sendKeys(new_password);
@@ -80,8 +81,11 @@ describe("Test: Create New User", function(){
         await driver.findElement(By.id("id_submitbutton")).click();
 
         currentPageTitle = await driver.getTitle()
+
         assert.strictEqual(currentPageTitle, usersPageTitle);
+
         currentPageTitle.should.equal(usersPageTitle);
+
         console.log('New User Added: ', new_username,'\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
       
         // search new user
