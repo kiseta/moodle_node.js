@@ -1,6 +1,6 @@
 const rnd = require('generate-random-data');
 
-// ------------------------------- data --------------------------------------
+// -------------------------------admin and site data --------------------------------------
 const hr = '\n--------------~*~------------';
 const baseUrl = 'http://52.39.5.126/';
 const app = "Moodle LMS";
@@ -9,7 +9,9 @@ const usersPageTitle = "SQA: Administration: Users: Accounts: Browse list of use
 const admin_username = 'tkuser'
 const admin_password = 'Moodle!123';
 const admin_fullname = 'Test User';
+// --------------------------------------------------------------------------------
 
+// --------------------------------- new user data ---------------------------------------
 var new_firstName = [rnd.femaleFirstName(), rnd.maleFirstName()][Math.floor(Math.random() * 2)];
 var new_lastName = rnd.lastName();
 var new_userName = (new_firstName.concat("", new_lastName)).toLowerCase().substring(0, 10) + rnd.int(11,99);
@@ -19,17 +21,8 @@ var tld = rnd.tld();
 var random_domain = rnd.domain(tld);
 var new_email = new_userName + "@" + random_domain;
 var description_text = rnd.sentence(10, 50)
+// -------------------------------------------------------------------------------------------
 
-// var new_user = {
-
-//     "username" : new_userName,
-//     "password" : new_password,
-//     "firstname": new_firstName,
-//     "lastname": new_lastName,
-//     "fullname" : new_fullName,
-//     "email": new_email,
-//     "desc" : description_text
-// }
 
 module.exports = {
     hr, baseUrl, app, homePageTitle, usersPageTitle, admin_username, admin_password, admin_fullname,

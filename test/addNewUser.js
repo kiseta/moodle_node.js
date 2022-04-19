@@ -13,22 +13,32 @@ console.log(data.new_firstName, data.new_lastName, data.new_userName, data.tld, 
 
 // use Mocha testing framework
 // describe block
+
 describe("Moodle Test: Add New User", function(){
+    var driver;
 
     // lambdatest related settings
-
     // username
     const USERNAME = ltCapabilities.capabilities.user;
-
-
     // key
-
+    const KEY = ltCapabilities.capabilities.accessKey;
     // host
+    const GRID_HOST = "hub.lambdatest.com/wd/hub";
+    const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
+
+beforeEach(function(){
+
+    driver = new Builder().forBrowser("chrome").build();
+    // ltCapabilities.capabilities.name = this.currentTest.title;
+    // driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
+});
+
+afterEach(async function(){
+    await driver.quit();
+});
 
     // it block (it = individual test)
     it("Launch Moodle app, login, register new user", async function(){
-
-        let driver = await new Builder().forBrowser("chrome").build();
 
         await driver.get(data.baseUrl);
         actualHomePageTitle = await driver.getTitle();
@@ -93,9 +103,8 @@ describe("Moodle Test: Add New User", function(){
         await driver.findElement(By.xpath('//td[contains(., "' + data.new_email + '")]/../td/a[contains(@href, "delete=")]')).click();
         await driver.findElement(By.xpath('//button[text()="Delete"]')).click();
 
-        // quit the browser after execution
-        await driver.quit();
-
     });
+
+    
 });
 
