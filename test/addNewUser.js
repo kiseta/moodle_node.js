@@ -6,35 +6,37 @@ const assert = require("assert");
 const should = require("chai").should();
 const rnd = require('generate-random-data');
 
-console.log(data.new_firstName, data.new_lastName, data.new_userName, data.tld, data.random_domain, data.new_email, '\n', data.description_text);
+// console.log(data.new_firstName, data.new_lastName, data.new_userName, data.tld, data.random_domain, data.new_email, '\n', data.description_text);
 
 // ----------------------------------------------------------------------------
 
+function helloworld(param){
+    console.log("\n *^*^* " + param, new Date().toLocaleString() +  "\n")
 
+}
 // use Mocha testing framework
 // describe block
-
 describe("Moodle Test: Add New User", function(){
     var driver;
 
-    // lambdatest related settings
-    // username
+    // lambdatest related settings, username, key, host
     const USERNAME = ltCapabilities.capabilities.user;
-    // key
     const KEY = ltCapabilities.capabilities.accessKey;
-    // host
     const GRID_HOST = "hub.lambdatest.com/wd/hub";
     const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
 beforeEach(function(){
+    // driver = new Builder().forBrowser("chrome").build();
 
-    driver = new Builder().forBrowser("chrome").build();
-    // ltCapabilities.capabilities.name = this.currentTest.title;
-    // driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
+    ltCapabilities.capabilities.name = this.currentTest.title;
+    driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
+
+    helloworld("Test started: ")
 });
 
 afterEach(async function(){
     await driver.quit();
+    helloworld("Test ended at:")
 });
 
     // it block (it = individual test)
@@ -73,7 +75,7 @@ afterEach(async function(){
 
         console.log('Navigate to Add New User\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
-        // required filds only
+        // populate Add New User form, required filds only
         await driver.findElement(By.id("id_username")).sendKeys(data.new_userName);
         await driver.findElement(By.linkText("Click to enter text")).click();
         await driver.findElement(By.id("id_newpassword")).sendKeys(data.new_password);
@@ -92,16 +94,27 @@ afterEach(async function(){
 
         currentPageTitle.should.equal(data.usersPageTitle);
 
-        console.log('New User Added: ', data.new_userName,'\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+        console.log('New User Added:', data.new_userName,'\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
       
         // search new user
         await driver.findElement(By.id("id_email")).sendKeys(data.new_email);
         await driver.findElement(By.id("id_addfilter")).click();
         // add assert full name and capture system id
 
+        let new_emailText = await driver.findElement(By.xpath('//td[contains(., "' + data.new_fullName + '")]/../td[contains(., "' + data.new_email + '")]')).getText().then(function(value){
+            return value
+        })
+        new_emailText.should.equal(data.new_email);
+        var href = await driver.findElement(By.linkText(data.new_fullName)).getAttribute("href");
+        var sysId = href.split('id=').pop().split('&')[0];
+        console.log('New User found: ', data.new_userName,'\nFull name:', data.new_fullName,'\nUser Email:', new_emailText, "\nNew User SysID:", sysId, data.hr);
+        
+
         //delete new user
-        await driver.findElement(By.xpath('//td[contains(., "' + data.new_email + '")]/../td/a[contains(@href, "delete=")]')).click();
+        await driver.findElement(By.xpath('//td[contains(., "' + data.new_email + '")]/../td/a[contains(@href, "delete=' + sysId + '")]')).click();
         await driver.findElement(By.xpath('//button[text()="Delete"]')).click();
+
+        console.log('New User Deleted: ', data.new_userName,'\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
     });
 

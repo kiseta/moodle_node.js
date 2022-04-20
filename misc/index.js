@@ -1,7 +1,6 @@
-var random = require('generate-random-data');
-new_firstName = [random.femaleFirstName(), random.maleFirstName()][Math.floor(Math.random() * 2)];
-new_lastName = random.lastName();
-new_username = (new_firstName + new_lastName).toLowerCase().substring(0, 10) + random.int(11,99);
+
+var sysId = "http://52.39.5.126/user/view.php?id=5612&course=1".split('id=').pop().split('&')[0];
+console.log(" *** SysID", sysId)
 
 // const webdriver = require('selenium-webdriver'),
 //     By = webdriver.By,

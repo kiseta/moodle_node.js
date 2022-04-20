@@ -1,4 +1,5 @@
-const rnd = require('generate-random-data');
+var rnd = require('generate-random-data');
+
 
 // -------------------------------admin and site data --------------------------------------
 const hr = '\n--------------~*~------------';
