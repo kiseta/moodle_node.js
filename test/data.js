@@ -1,16 +1,17 @@
 var rnd = require('generate-random-data');
 
 
-// -------------------------------admin and site data --------------------------------------
+// ------------------------------- site data --------------------------------------
 const hr = '\n--------------~*~------------';
 const baseUrl = 'http://52.39.5.126/';
 const app = "Moodle LMS";
 const homePageTitle = "Software Quality Assurance Testing";
 const usersPageTitle = "SQA: Administration: Users: Accounts: Browse list of users";
+
+// -------------------------------- admin data ----------------------------------
 const admin_username = 'tkuser'
 const admin_password = 'Moodle!123';
 const admin_fullname = 'Test User';
-// --------------------------------------------------------------------------------
 
 // --------------------------------- new user data ---------------------------------------
 var new_firstName = [rnd.femaleFirstName(), rnd.maleFirstName()][Math.floor(Math.random() * 2)];

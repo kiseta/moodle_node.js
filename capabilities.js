@@ -7,8 +7,6 @@ var capabilities = {
     "browserName" : "Chrome",
     "version" : "100.0",
     "headless" : false,
-    "network" : true,
-    "console" : true,
 }
 
 module.exports = {

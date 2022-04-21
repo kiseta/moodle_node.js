@@ -4,16 +4,8 @@ const data = require("./data")
 require("chromedriver");
 const assert = require("assert");
 const should = require("chai").should();
-const rnd = require('generate-random-data');
 
-// console.log(data.new_firstName, data.new_lastName, data.new_userName, data.tld, data.random_domain, data.new_email, '\n', data.description_text);
 
-// ----------------------------------------------------------------------------
-
-function helloworld(param){
-    console.log("\n *^*^* " + param, new Date().toLocaleString() +  "\n")
-
-}
 // use Mocha testing framework
 // describe block
 describe("Moodle Test: Add New User", function(){
@@ -25,19 +17,19 @@ describe("Moodle Test: Add New User", function(){
     const GRID_HOST = "hub.lambdatest.com/wd/hub";
     const gridUrl = "https://" + USERNAME + ":" + KEY + "@" + GRID_HOST;
 
-beforeEach(function(){
-    // driver = new Builder().forBrowser("chrome").build();
+    beforeEach(function(){
+        driver = new Builder().forBrowser("chrome").build();
 
-    ltCapabilities.capabilities.name = this.currentTest.title;
-    driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
+        // ltCapabilities.capabilities.name = this.currentTest.title;
+        // driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
 
-    helloworld("Test started: ")
-});
+        helloworld("Test started: ")
+    });
 
-afterEach(async function(){
-    await driver.quit();
-    helloworld("Test ended at:")
-});
+    afterEach(async function(){
+        await driver.quit();
+        helloworld("Test ended at:")
+    });
 
     // it block (it = individual test)
     it("Launch Moodle app, login, register new user", async function(){
@@ -46,11 +38,11 @@ afterEach(async function(){
         actualHomePageTitle = await driver.getTitle();
         actualHomePageTitle.should.equal(data.homePageTitle);
 
-        console.log('Launch', data.app, 'Website\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+        console.log('\nLaunch', data.app, 'Website\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
         await driver.findElement(By.linkText("Log in")).click();
 
-        console.log('Login\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+        console.log('Login Form is displayed \nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
         await driver.findElement(By.id("username")).sendKeys(data.admin_username);
         await driver.findElement(By.id("password")).sendKeys(data.admin_password);
@@ -110,14 +102,23 @@ afterEach(async function(){
         console.log('New User found: ', data.new_userName,'\nFull name:', data.new_fullName,'\nUser Email:', new_emailText, "\nNew User SysID:", sysId, data.hr);
         
 
-        //delete new user
+        // delete new user
         await driver.findElement(By.xpath('//td[contains(., "' + data.new_email + '")]/../td/a[contains(@href, "delete=' + sysId + '")]')).click();
         await driver.findElement(By.xpath('//button[text()="Delete"]')).click();
 
         console.log('New User Deleted: ', data.new_userName,'\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+
+        // logout
+        await driver.findElement(By.className("usertext mr-1")).click();
+        await driver.findElement(By.xpath('//span[contains(.,"Log out")]')).click()
+
+        console.log('Logout \nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
     });
 
     
 });
 
+function helloworld(param){
+    console.log("\n*^*^*", param, new Date().toLocaleString(), "\n")
+}
