@@ -1,7 +1,7 @@
 const {By,Key,Builder} = require("selenium-webdriver");
+require("chromedriver");
 const ltCapabilities = require("../capabilities")
 const data = require("./data")
-require("chromedriver");
 const assert = require("assert");
 const should = require("chai").should();
 
@@ -23,12 +23,12 @@ describe("Moodle Test: Add New User", function(){
         // ltCapabilities.capabilities.name = this.currentTest.title;
         // driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
 
-        helloworld("Test started: ")
+        console.log("\n*^*^*", "Test started:", new Date().toLocaleString(), "\n")
     });
 
     afterEach(async function(){
         await driver.quit();
-        helloworld("Test ended at:")
+        console.log("\n*^*^*", "Test ended at", new Date().toLocaleString(), "\n")
     });
 
     // it block (it = individual test)
@@ -38,7 +38,8 @@ describe("Moodle Test: Add New User", function(){
         actualHomePageTitle = await driver.getTitle();
         actualHomePageTitle.should.equal(data.homePageTitle);
 
-        console.log('\nLaunch', data.app, 'Website\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+        // console.log('\nLaunch', data.app, 'Website\nTitle is:', actualHomePageTitle,'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
+        console.log(`\nLaunch ${data.app} website\nPage Title: ${actualHomePageTitle}\nCurrent URL: ${await driver.getCurrentUrl()} ${data.hr}`)
 
         await driver.findElement(By.linkText("Log in")).click();
 

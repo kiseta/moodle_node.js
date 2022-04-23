@@ -31,7 +31,7 @@ describe("Moodle Test: Login as Admin User, Log Out", function(){
     });
 
     // it block (it = individual test)
-    it("Launch Moodle app Login, Logout", async function(){
+    it("Launch Moodle app, Login, Logout", async function(){
 
 
         await driver.get(data.baseUrl);

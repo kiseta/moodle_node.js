@@ -1,36 +1,25 @@
 const {By,Key,Builder} = require("selenium-webdriver");
 require("chromedriver");
 const assert = require("assert");
-// const data = require("data")
+const data = require("../test/data")
 var should = require("chai").should();
-
-// ------------------------------- data --------------------------------------
-var hr = '\n--------------~*~------------';
-var baseUrl = 'http://52.39.5.126/';
-var app = "Moodle LMS";
-var homePageTitle = "Software Quality Assurance Testing";
-var admin_username = 'tkuser';
-var admin_password = 'Moodle!123';
-var admin_fullname = 'Test User';
-
-// ----------------------------------------------------------------------------
 
 async function example(){
 
     let driver = await new Builder().forBrowser("chrome").build();
 
-    await driver.get(baseUrl);
+    await driver.get(data.baseUrl);
     actualHomePageTitle = await driver.getTitle()
-    actualHomePageTitle.should.equal(homePageTitle)
+    actualHomePageTitle.should.equal(data.homePageTitle)
 
-    console.log('Launch', app, 'Website\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
+    console.log('Launch', data.app, 'Website\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
     await driver.findElement(By.linkText("Log in")).click();
 
-    console.log('Login\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
+    console.log('Login\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
-    await driver.findElement(By.id("username")).sendKeys(admin_username);
-    await driver.findElement(By.id("password")).sendKeys(admin_password);
+    await driver.findElement(By.id("username")).sendKeys(data.admin_username);
+    await driver.findElement(By.id("password")).sendKeys(data.admin_password);
     await driver.findElement(By.id("loginbtn")).click();
 
     // assert using node assertion
@@ -44,21 +33,21 @@ async function example(){
         return value
     })
 
-    assert.strictEqual(fullNameText, admin_fullname)
+    assert.strictEqual(fullNameText, data.admin_fullname)
 
     // assert using chai should
-    fullNameText.should.equal(admin_fullname)
+    fullNameText.should.equal(data.admin_fullname)
 
-    console.log('Login Successful! User Name is confirmed:', fullNameText, hr)
+    console.log('Login Successful! User Name is confirmed:', fullNameText, data.hr)
 
-    console.log('Confirm Dashboard\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
+    console.log('Confirm Dashboard\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
 
     await driver.findElement(By.linkText("Site administration")).click();
     await driver.findElement(By.linkText("Users")).click();
     await driver.findElement(By.linkText("Add a new user")).click();
 
-    console.log('Navigate to Add New User\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), hr);
+    console.log('Navigate to Add New User\nTitle is:', await driver.getTitle(),'\nCurrent URL:', await driver.getCurrentUrl(), data.hr);
 
 
     // quit the browser after execution
