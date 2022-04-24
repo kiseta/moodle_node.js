@@ -35,6 +35,7 @@ describe("Moodle Test: Login as Admin User, Log Out", function(){
 
 
         await driver.get(data.baseUrl);
+        await driver.manage().window().maximize();
         actualHomePageTitle = await driver.getTitle()
         actualHomePageTitle.should.equal(data.homePageTitle)
 

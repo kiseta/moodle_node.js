@@ -9,6 +9,7 @@ async function example(){
     let driver = await new Builder().forBrowser("chrome").build();
 
     await driver.get(data.baseUrl);
+    await driver.manage().window().maximize();
     actualHomePageTitle = await driver.getTitle()
     actualHomePageTitle.should.equal(data.homePageTitle)
 
