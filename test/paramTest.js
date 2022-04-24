@@ -37,6 +37,7 @@ describe("Moodle Test: Login as Admin User", function(){
             driver = new Builder().usingServer(gridUrl).withCapabilities(ltCapabilities.capabilities).build();
 
             await driver.get(data.baseUrl);
+            await driver.manage().window().maximize();
             actualHomePageTitle = await driver.getTitle()
             actualHomePageTitle.should.equal(data.homePageTitle)
 

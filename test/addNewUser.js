@@ -35,6 +35,7 @@ describe("Moodle Test: Add New User", function(){
     it("Launch Moodle app, login, register new user", async function(){
 
         await driver.get(data.baseUrl);
+        await driver.manage().window().maximize();
         actualHomePageTitle = await driver.getTitle();
         actualHomePageTitle.should.equal(data.homePageTitle);
 
